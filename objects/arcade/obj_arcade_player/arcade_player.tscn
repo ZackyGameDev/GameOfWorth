@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://dohtuvq7pdlh"]
+
+[ext_resource type="Script" uid="uid://vklnb7urkjrn" path="res://objects/arcade/obj_arcade_player/arcade_player.gd" id="1_6msta"]
+[ext_resource type="Texture2D" uid="uid://ia431nxqvfy8" path="res://sprites/arcade sprites/player.png" id="2_km4ld"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cm6v5"]
+
+[node name="ArcadePlayer" type="Node2D"]
+script = ExtResource("1_6msta")
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CircleShape2D_cm6v5")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_km4ld")
+
+[node name="shootparticles" type="CPUParticles2D" parent="."]
+position = Vector2(13, 0)
+emitting = false
+amount = 5
+lifetime = 0.28
+one_shot = true
+explosiveness = 0.78
+spread = 63.09
+gravity = Vector2(0, 0)
+initial_velocity_min = 44.2
+initial_velocity_max = 78.05
+angular_velocity_min = -23.05
+angular_velocity_max = 376.25
+scale_amount_min = 0.7
+scale_amount_max = 2.45
+color = Color(0.24491587, 0.12623638, 0.4994986, 1)
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

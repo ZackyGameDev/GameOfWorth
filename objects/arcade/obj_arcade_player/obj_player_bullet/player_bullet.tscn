@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://br4ya18ukc011"]
+
+[ext_resource type="Script" uid="uid://bcfxtwehuouy0" path="res://objects/arcade/obj_arcade_player/obj_player_bullet/player_bullet.gd" id="1_an3fl"]
+[ext_resource type="Texture2D" uid="uid://d4h76okjn8hu2" path="res://sprites/arcade sprites/bullet.png" id="2_ipi0u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_an3fl"]
+size = Vector2(4, 4)
+
+[node name="PlayerBulllet" type="Node2D"]
+script = ExtResource("1_an3fl")
+
+[node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(1, 1)
+texture = ExtResource("2_ipi0u")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_an3fl")

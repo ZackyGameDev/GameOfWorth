@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyjyh42pxy473"]
+
+[ext_resource type="Script" uid="uid://bmkh4i14vp8pr" path="res://objects/arcade/tasks/task.gd" id="1_fae05"]
+[ext_resource type="Texture2D" uid="uid://dfmp5sxckm8em" path="res://sprites/arcade sprites/taskpaper.png" id="2_lmpyw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmpyw"]
+size = Vector2(19, 20.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sua5o"]
+size = Vector2(14, 16)
+
+[node name="TaskPaper" type="Node2D"]
+script = ExtResource("1_fae05")
+metadata/_custom_type_script = "uid://bmkh4i14vp8pr"
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_lmpyw")
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_lmpyw")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_sua5o")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

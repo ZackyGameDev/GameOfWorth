@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://ca1rgvdj5hw5r"]
+
+[ext_resource type="Texture2D" uid="uid://7dvn6njgxc7r" path="res://sprites/scenes/lightpurple.png" id="1_2q1jv"]
+[ext_resource type="Script" uid="uid://dw6ocov7i8fjw" path="res://rooms/rm_arcade_game/arcade_game.gd" id="1_dmatm"]
+[ext_resource type="PackedScene" uid="uid://dohtuvq7pdlh" path="res://objects/arcade/obj_arcade_player/arcade_player.tscn" id="2_ikaw0"]
+[ext_resource type="PackedScene" uid="uid://cyjyh42pxy473" path="res://objects/arcade/tasks/obj_task_paper/TaskPaper.tscn" id="3_le8uo"]
+[ext_resource type="Texture2D" uid="uid://blkfw3kqkj5tc" path="res://sprites/arcade sprites/text/pressup.png" id="4_3ljo0"]
+[ext_resource type="Texture2D" uid="uid://dsoga8i42xxui" path="res://sprites/arcade sprites/text/holdup.png" id="6_jy4ll"]
+
+[node name="ArcadeGame" type="Node2D"]
+script = ExtResource("1_dmatm")
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(-52, -55)
+scale = Vector2(1.378125, 1.5777779)
+texture = ExtResource("1_2q1jv")
+centered = false
+
+[node name="player" parent="." instance=ExtResource("2_ikaw0")]
+position = Vector2(78, 85)
+
+[node name="task1" parent="." instance=ExtResource("3_le8uo")]
+position = Vector2(221, 84)
+
+[node name="tutorials" type="Node2D" parent="."]
+
+[node name="pressup" type="Sprite2D" parent="tutorials"]
+position = Vector2(152, 85)
+texture = ExtResource("4_3ljo0")
+
+[node name="holdup" type="Sprite2D" parent="tutorials"]
+visible = false
+position = Vector2(177, 80)
+texture = ExtResource("6_jy4ll")

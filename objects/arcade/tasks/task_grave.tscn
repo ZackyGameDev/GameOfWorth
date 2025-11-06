@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm31svv1g5d3n"]
+
+[ext_resource type="Script" uid="uid://bm0ajhuvh3i5f" path="res://objects/arcade/tasks/task_grave.gd" id="1_js7hc"]
+
+[node name="TaskGrave" type="Node2D"]
+script = ExtResource("1_js7hc")
+
+[node name="deathparticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.55
+one_shot = true
+explosiveness = 0.67
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 44.91
+initial_velocity_max = 86.15
+angular_velocity_min = -23.05
+angular_velocity_max = 376.25
+scale_amount_min = 0.7
+scale_amount_max = 2.45
+color = Color(0.24491587, 0.12623638, 0.4994986, 1)
+
+[node name="points" type="RichTextLabel" parent="."]
+offset_left = -44.0
+offset_top = -25.0
+offset_right = 44.0
+theme_override_colors/default_color = Color(0.43897596, 0.144605, 0.9705289, 1)
+text = "+[score]"
+horizontal_alignment = 1
