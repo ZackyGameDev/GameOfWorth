@@ -13,9 +13,6 @@ size = Vector2(14, 16)
 script = ExtResource("1_fae05")
 metadata/_custom_type_script = "uid://bmkh4i14vp8pr"
 
-[node name="sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_lmpyw")
-
 [node name="hurtbox" type="Area2D" parent="."]
 
 [node name="shape" type="CollisionShape2D" parent="hurtbox"]
@@ -27,5 +24,8 @@ shape = SubResource("RectangleShape2D_lmpyw")
 [node name="shape" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_sua5o")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_lmpyw")
 
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

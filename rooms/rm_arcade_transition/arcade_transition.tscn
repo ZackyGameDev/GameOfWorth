@@ -1,8 +1,9 @@
-[gd_scene load_steps=70 format=3 uid="uid://cvfpxfv0ggol5"]
+[gd_scene load_steps=71 format=3 uid="uid://cvfpxfv0ggol5"]
 
 [ext_resource type="Script" uid="uid://bxrc2s5sfi5c4" path="res://rooms/rm_arcade_transition/arcade_transition.gd" id="1_t7nft"]
 [ext_resource type="Texture2D" uid="uid://m2er4cn07yb3" path="res://sprites/scenes/boot.png" id="1_vxnav"]
 [ext_resource type="Texture2D" uid="uid://cqha1t5htkaax" path="res://sprites/scenes/purple.png" id="3_v8i4s"]
+[ext_resource type="Texture2D" uid="uid://7dvn6njgxc7r" path="res://sprites/scenes/lightpurple.png" id="4_y62oq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aq1lf"]
 atlas = ExtResource("1_vxnav")
@@ -481,5 +482,11 @@ centered = false
 position = Vector2(156.56, 67.59)
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("3_v8i4s")
+
+[node name="Lightpurple" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(159, 95.5)
+scale = Vector2(1.1375, 1.0833334)
+texture = ExtResource("4_y62oq")
 
 [connection signal="animation_finished" from="Boot" to="." method="_on_boot_animation_finished"]

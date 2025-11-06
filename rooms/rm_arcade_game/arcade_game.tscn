@@ -32,3 +32,10 @@ texture = ExtResource("4_3ljo0")
 visible = false
 position = Vector2(177, 80)
 texture = ExtResource("6_jy4ll")
+
+[node name="fg" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-52, -55)
+scale = Vector2(1.378125, 1.5777779)
+texture = ExtResource("1_2q1jv")
+centered = false

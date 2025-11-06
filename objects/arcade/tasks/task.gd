@@ -37,10 +37,12 @@ func _ready():
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if (area.name == "hitbox" and area.get_parent() is PlayerBullet):
+	var parent = area.get_parent()
+	if (area.name == "hitbox" and parent is PlayerBullet):
 		hp -= 1
-		area.get_parent().queue_free()
+		parent.queue_free()
 		if hp == 0:
+			parent.give_points_to_player(points)
 			die()
 	flash()
 

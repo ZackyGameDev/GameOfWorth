@@ -6,6 +6,12 @@ class_name ArcadeGame
 @onready var holdup: Node2D = $tutorials/holdup
 @onready var player_start_position = $player.position
 
+
+func _ready() -> void:
+	$fg.self_modulate.a = 1
+	var tween = get_tree().create_tween()
+	tween.tween_property($fg, "self_modulate:a", 0, 1)
+
 func show_nice_stamp() -> void:
 	var nicestampscene = preload("res://objects/arcade/misc/nice!/nicestamp.tscn")
 	var stamp: ApprovalStampNice = nicestampscene.instantiate()

@@ -2,6 +2,13 @@ extends Node2D
 class_name PlayerBullet
 
 var speed = 300;
+var player: ArcadePlayer # set by the player while spawning this bullet.
+
+func connect_player(_player: ArcadePlayer) -> void: # who shot
+	player = _player
+
+func give_points_to_player(points: float) -> void: 
+	player.update_points(points)
 
 func _physics_process(delta: float) -> void:
 	position.x += cos(rotation) * speed * delta

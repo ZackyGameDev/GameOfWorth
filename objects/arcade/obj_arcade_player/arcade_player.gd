@@ -1,6 +1,10 @@
 extends Node2D
 class_name ArcadePlayer
 
+signal got_hurt(resultant_hp: float)
+signal got_distracted(remaining_time: float)
+
+
 var hsp: float = 0.0
 var vsp: float = 0.0
 var acceleration: float = 70.0
@@ -13,9 +17,31 @@ var shake_strength = 0.0
 var shake_decay = 10.0  # higher = ends faster
 var shake_amount = 2.0  # max pixels to shake
 
+var points: float = 0.0 # OTHER NODES MUST USE update_points THAN MODIFY THIS
 var stamina: float = 1.00 # range is [0, 1] (float)
 var time_left: float = 12.0 # 12 hours very arbitrary
 var iframes_active: bool = false
+
+var hud: ArcadeHUD
+
+func _ready() -> void:
+	var hudscene = preload("res://objects/arcade/obj_arcade_player/HUD/arcade_hud.tscn")
+	var _hud = hudscene.instantiate()
+	print("Parent in tree:", get_parent().is_inside_tree())
+	get_parent().add_child.call_deferred(_hud)
+	hud = _hud
+	print("Added hud: ", hud)
+
+func get_hurt(damage: float) -> void:
+	stamina -= damage
+	shake_strength = 2.0
+	got_hurt.emit(stamina)
+	hud.power = stamina
+	hud.show_power()
+
+func update_points(points_to_add: float):
+	points += points_to_add
+	hud.show_score()
 
 func process_shake(delta):
 	if shake_strength > 0.0:
@@ -29,11 +55,12 @@ func process_shake(delta):
 
 func shoot() -> PlayerBullet:
 	var bullet_scene = preload("res://objects/arcade/obj_arcade_player/obj_player_bullet/player_bullet.tscn")
-	var bullet = bullet_scene.instantiate()
-	get_parent().add_child(bullet)
+	var bullet: PlayerBullet = bullet_scene.instantiate()
 	bullet.position = position
 	bullet.position += Vector2.from_angle(rotation) * 10
 	bullet.rotation = rotation
+	get_parent().add_child(bullet)
+	bullet.connect_player(self)
 	shake_strength = 1.0
 	$shootparticles.emitting = true
 	return bullet
@@ -85,7 +112,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area.get_parent() is Task and area.name == "hitbox" and not iframes_active:
-		stamina -= 0.1
-		shake_strength = 2.0
+		get_hurt(0.1)
 		area.get_parent().die()
 		flash()
