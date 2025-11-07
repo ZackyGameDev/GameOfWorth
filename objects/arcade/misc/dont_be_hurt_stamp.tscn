@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt74i6i1qg016"]
+
+[ext_resource type="Script" uid="uid://bh86n704bqsdy" path="res://objects/arcade/misc/nice!/nicestamp.gd" id="1_54uua"]
+[ext_resource type="Texture2D" uid="uid://rwa0ufn5y8eh" path="res://sprites/arcade sprites/text/dontbehurt.png" id="2_j1j6k"]
+
+[node name="DontBeHurtStamp" type="Node2D"]
+script = ExtResource("1_54uua")
+delay = 4
+metadata/_custom_type_script = "uid://bh86n704bqsdy"
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_j1j6k")

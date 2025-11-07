@@ -6,7 +6,7 @@ The particles MUST have a lifetime less than the tween duration here
 otherwise the particle effect may get cutoff
 '''
 
-var displayed_points: float = 0.0
+var displayed_points: int = 0
 
 func _ready() -> void:
 	$deathparticles.emitting = true

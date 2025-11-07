@@ -33,4 +33,5 @@ scale_amount_min = 0.7
 scale_amount_max = 2.45
 color = Color(0.24491587, 0.12623638, 0.4994986, 1)
 
+[connection signal="got_hurt" from="." to="." method="_on_got_hurt"]
 [connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

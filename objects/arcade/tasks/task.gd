@@ -1,9 +1,10 @@
 extends Node2D
 class_name Task
 
-var hp: float = 10.0
-var points: float = 50.0
-
+var hp: int = 3
+var points: int = 50
+var float_delta: Vector2 = Vector2.ZERO
+@onready var pivot_pos: Vector2 = position
 '''
 Tasks are always Node2D at root and have the following children at LEAST
 sprite -> Sprite2D
@@ -18,6 +19,13 @@ signals:
 
 signal died(points: float);
 
+var fly_tween: Tween
+var float_tween: Tween
+
+func attack():
+	print("attack function used on base Task class!")
+	print("Task.attack() is only defined for other nodes that extend Task")
+
 func die():
 	var scene = preload("res://objects/arcade/tasks/task_grave.tscn")
 	var grave = scene.instantiate()
@@ -27,13 +35,34 @@ func die():
 	died.emit(points)
 	queue_free()
 
+func fly_to(destination: Vector2, time_taken: float):
+	if fly_tween.is_running():
+		print("already flying somewhere")
+		return
+	if fly_tween.is_valid(): 
+		fly_tween.kill() # free this variable for my new fly tween
+	fly_tween = get_tree().create_tween()
+	fly_tween.tween_property(self, "pivot_pos", destination, time_taken) \
+		.set_trans(Tween.TRANS_CUBIC) \
+		.set_ease(Tween.EASE_IN_OUT)
+
 func _ready():
-	var tween = create_tween().set_loops()  # loop forever
-	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	pivot_pos = position
 	
-	var start_y = position.y
-	tween.tween_property(self, "position:y", start_y - 2, 1.0)
-	tween.tween_property(self, "position:y", start_y + 2, 1.0)
+	float_tween = create_tween().set_loops()  # loop forever
+	float_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	float_tween.tween_property(self, "float_delta:y", -2.0, 1.0)
+	float_tween.tween_property(self, "float_delta:y", 2.0, 1.0)
+	
+	# initializing this varaible.
+	fly_tween = get_tree().create_tween()
+	fly_tween.kill()
+	
+	#fly_to(Vector2(220, 85), 1) # testing out this function 
+
+
+func _physics_process(_delta: float) -> void:
+	position = pivot_pos + float_delta
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:

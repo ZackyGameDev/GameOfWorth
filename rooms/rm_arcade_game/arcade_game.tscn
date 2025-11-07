@@ -20,7 +20,25 @@ centered = false
 position = Vector2(78, 85)
 
 [node name="task1" parent="." instance=ExtResource("3_le8uo")]
-position = Vector2(221, 84)
+position = Vector2(44, 161)
+
+[node name="task4" parent="." instance=ExtResource("3_le8uo")]
+position = Vector2(145, 119)
+
+[node name="task5" parent="." instance=ExtResource("3_le8uo")]
+position = Vector2(248, 97)
+
+[node name="task6" parent="." instance=ExtResource("3_le8uo")]
+position = Vector2(265, 33)
+
+[node name="task7" parent="." instance=ExtResource("3_le8uo")]
+position = Vector2(34, 58)
+
+[node name="task2" parent="." instance=ExtResource("3_le8uo")]
+position = Vector2(261, 145)
+
+[node name="task3" parent="." instance=ExtResource("3_le8uo")]
+position = Vector2(174, 158)
 
 [node name="tutorials" type="Node2D" parent="."]
 
@@ -34,6 +52,7 @@ position = Vector2(177, 80)
 texture = ExtResource("6_jy4ll")
 
 [node name="fg" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 position = Vector2(-52, -55)
 scale = Vector2(1.378125, 1.5777779)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1hckpy3lmcfc"]
+
+[ext_resource type="Script" uid="uid://bh86n704bqsdy" path="res://objects/arcade/misc/nice!/nicestamp.gd" id="1_hovgo"]
+[ext_resource type="Texture2D" uid="uid://bsnetoofsrw13" path="res://sprites/arcade sprites/text/taskdonestamp.png" id="2_hovgo"]
+
+[node name="TaskDoneStamp" type="Node2D"]
+script = ExtResource("1_hovgo")
+delay = 4
+metadata/_custom_type_script = "uid://bh86n704bqsdy"
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_hovgo")
+
+[node name="task" type="RichTextLabel" parent="."]
+offset_left = -43.0
+offset_top = -22.0
+offset_right = 42.0
+offset_bottom = 13.0
+text = "Task"
+horizontal_alignment = 1
+
+[node name="complete" type="RichTextLabel" parent="."]
+offset_left = -40.0
+offset_top = -5.0
+offset_right = 45.0
+offset_bottom = 21.0
+text = "Complete!"
+horizontal_alignment = 1

@@ -1,0 +1,99 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhcg3scd8xd1w"]
+
+[ext_resource type="Script" uid="uid://bw6ddvcj42pd6" path="res://objects/arcade/obj_arcade_player/HUD/arcade_hud.gd" id="1_bn161"]
+[ext_resource type="Texture2D" uid="uid://c2fnpntuoi500" path="res://sprites/scenes/darkpurple.png" id="1_frtfc"]
+[ext_resource type="Texture2D" uid="uid://c7j1l5sjdskt2" path="res://sprites/arcade sprites/text/healthbar.png" id="3_jdils"]
+[ext_resource type="Texture2D" uid="uid://bim5b5l8c3acn" path="res://sprites/arcade sprites/text/scoretank.png" id="3_pobxd"]
+[ext_resource type="Texture2D" uid="uid://dynt7mvn3rjux" path="res://sprites/arcade sprites/text/scorejuice.png" id="4_m3c08"]
+[ext_resource type="Texture2D" uid="uid://dum7ymxrfshte" path="res://sprites/arcade sprites/text/healthbarjuice.png" id="4_pobxd"]
+
+[node name="arcadehud" type="Node2D"]
+script = ExtResource("1_bn161")
+metadata/_custom_type_script = "uid://bw6ddvcj42pd6"
+
+[node name="progress" type="Node2D" parent="."]
+position = Vector2(-2, -43)
+metadata/_edit_group_ = true
+
+[node name="box" type="Sprite2D" parent="progress"]
+position = Vector2(158, -16.500002)
+scale = Vector2(1.3577075, 1.1222222)
+texture = ExtResource("1_frtfc")
+
+[node name="bar" type="Sprite2D" parent="progress"]
+position = Vector2(58, 12)
+texture = ExtResource("3_pobxd")
+
+[node name="juice" type="Sprite2D" parent="progress/bar"]
+position = Vector2(-52, -4.515)
+texture = ExtResource("4_m3c08")
+centered = false
+
+[node name="taskpercent" type="RichTextLabel" parent="progress/bar"]
+offset_left = -53.0
+offset_top = -10.0
+offset_right = 54.0
+offset_bottom = 10.0
+pivot_offset = Vector2(18, 15)
+theme_override_font_sizes/normal_font_size = 11
+text = "100%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="tasknumber" type="RichTextLabel" parent="progress"]
+offset_left = 2.0
+offset_top = 17.0
+offset_right = 116.0
+offset_bottom = 35.0
+pivot_offset = Vector2(18, 15)
+theme_override_font_sizes/normal_font_size = 11
+text = "Task X (c/C)"
+horizontal_alignment = 1
+
+[node name="scorelabels" type="RichTextLabel" parent="progress"]
+offset_left = 113.0
+offset_top = 1.0
+offset_right = 319.0
+offset_bottom = 33.0
+pivot_offset = Vector2(18, 15)
+theme_override_font_sizes/normal_font_size = 11
+text = "-> Current Score
+-> Total Score     "
+horizontal_alignment = 2
+
+[node name="score" type="RichTextLabel" parent="progress/scorelabels"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_right = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(18, 15)
+theme_override_font_sizes/normal_font_size = 11
+text = "0000
+00000"
+horizontal_alignment = 2
+
+[node name="power" type="Node2D" parent="."]
+position = Vector2(58, 37)
+metadata/_edit_group_ = true
+
+[node name="box" type="Sprite2D" parent="power"]
+position = Vector2(367, 192)
+scale = Vector2(0.94219357, 0.9388888)
+texture = ExtResource("1_frtfc")
+
+[node name="bar" type="Sprite2D" parent="power/box"]
+position = Vector2(-89.153656, -24.497036)
+scale = Vector2(0.7193237, 0.77905333)
+texture = ExtResource("3_jdils")
+
+[node name="juice" type="Sprite2D" parent="power/box/bar"]
+position = Vector2(-47.05559, -0.10651463)
+texture = ExtResource("4_pobxd")
+centered = false
+
+[node name="time" type="Node2D" parent="."]
+metadata/_edit_group_ = true

@@ -7,17 +7,17 @@ signal got_distracted(remaining_time: float)
 
 var hsp: float = 0.0
 var vsp: float = 0.0
-var acceleration: float = 70.0
+var acceleration: float = 100.0
 var retardation: float = 25.0
 var dir: float = 0.0
 var turnsp: float = 150.0 
-var max_speed: float = 120.0
+var max_speed: float = 150.0
 
 var shake_strength = 0.0
 var shake_decay = 10.0  # higher = ends faster
 var shake_amount = 2.0  # max pixels to shake
 
-var points: float = 0.0 # OTHER NODES MUST USE update_points THAN MODIFY THIS
+var points: int = 0 # OTHER NODES MUST USE update_points THAN MODIFY THIS
 var stamina: float = 1.00 # range is [0, 1] (float)
 var time_left: float = 12.0 # 12 hours very arbitrary
 var iframes_active: bool = false
@@ -32,6 +32,28 @@ func _ready() -> void:
 	hud = _hud
 	print("Added hud: ", hud)
 
+func process_wrap_around():
+	var room_size = Vector2(320, 180)
+	var player_size = Vector2(25, 25)
+
+	if position.x > room_size.x:
+		position.x = -player_size.x
+	elif position.x < -player_size.x:
+		position.x = room_size.x
+
+	if position.y > room_size.y:
+		position.y = -player_size.y
+	elif position.y < -player_size.y:
+		position.y = room_size.y
+
+
+func show_damage_tutorial():
+	var stampscene = preload("res://objects/arcade/misc/dont_be_hurt_stamp.tscn")
+	var stamp: PromptStamp = stampscene.instantiate()
+	stamp.global_position = get_viewport_rect().size/2
+	stamp.global_position.y += 69
+	get_parent().add_child(stamp)
+
 func get_hurt(damage: float) -> void:
 	stamina -= damage
 	shake_strength = 2.0
@@ -39,8 +61,9 @@ func get_hurt(damage: float) -> void:
 	hud.power = stamina
 	hud.show_power()
 
-func update_points(points_to_add: float):
+func update_points(points_to_add: int):
 	points += points_to_add
+	hud.points = points
 	hud.show_score()
 
 func process_shake(delta):
@@ -104,6 +127,7 @@ func _physics_process(delta: float) -> void:
 	position.x += hsp * delta
 	position.y += vsp * delta
 	rotation_degrees = dir
+	process_wrap_around()
 	
 	# shooting
 	if Input.is_action_just_pressed("ui_up"):
@@ -111,7 +135,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if area.get_parent() is Task and area.name == "hitbox" and not iframes_active:
+	var parent = area.get_parent()
+	if parent is Task and area.name == "hitbox" and not iframes_active:
 		get_hurt(0.1)
-		area.get_parent().die()
+		update_points(parent.points)
+		parent.die()
 		flash()
+
+
+func _on_got_hurt(resultant_hp: float) -> void:
+	if resultant_hp == 0.9:
+		show_damage_tutorial()
