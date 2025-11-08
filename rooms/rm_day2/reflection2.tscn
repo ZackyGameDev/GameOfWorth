@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxah84w0aujuf"]
+
+[ext_resource type="Texture2D" uid="uid://1rk1hr4xxmrm" path="res://sprites/scenes/reflection2.png" id="1_dbblk"]
+[ext_resource type="Texture2D" uid="uid://bqrf8arp5c7wa" path="res://sprites/scenes/facechakra.png" id="2_70cic"]
+
+[node name="Reflection1" type="Node2D"]
+
+[node name="frame1" type="Sprite2D" parent="."]
+position = Vector2(-410, -126.99999)
+scale = Vector2(3.665, 3.665)
+texture = ExtResource("1_dbblk")
+centered = false
+
+[node name="Facechakra" type="Sprite2D" parent="frame1"]
+position = Vector2(154.97955, 59.208733)
+scale = Vector2(0.27285132, 0.27285132)
+texture = ExtResource("2_70cic")
+
+[node name="frame0" type="Sprite2D" parent="."]
+texture = ExtResource("1_dbblk")
+centered = false
+
+[node name="Facechakra" type="Sprite2D" parent="frame0"]
+position = Vector2(154.99998, 59)
+scale = Vector2(0.265, 0.265)
+texture = ExtResource("2_70cic")

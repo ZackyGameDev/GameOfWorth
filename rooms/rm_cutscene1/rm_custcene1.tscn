@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpqlfgttjd40t"]
+
+[ext_resource type="Texture2D" uid="uid://bhmqyn32e08ek" path="res://sprites/scenes/cutscenebg.png" id="1_o217e"]
+[ext_resource type="Script" uid="uid://cgd5lc7jkx3ly" path="res://rooms/rm_cutscene1/rm_custcene_1.gd" id="1_slkon"]
+[ext_resource type="Texture2D" uid="uid://b0pbc3tej6sfa" path="res://sprites/scenes/warriors.png" id="2_83ija"]
+[ext_resource type="Texture2D" uid="uid://c7wvc0onp0roh" path="res://sprites/scenes/cutscene_chakra.png" id="3_i08wc"]
+[ext_resource type="FontFile" uid="uid://7i88sq27pkos" path="res://fonts/medodica/MedodicaRegular.otf" id="3_slkon"]
+[ext_resource type="Texture2D" uid="uid://bf21pwygf1m7d" path="res://sprites/scenes/gui/next.png" id="5_d7f24"]
+[ext_resource type="Script" uid="uid://gl65vr7u5wwp" path="res://objects/gui/base_button.gd" id="6_i08wc"]
+
+[node name="RmCustcene1" type="Node2D"]
+script = ExtResource("1_slkon")
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(-6.9999995, -4.9999995)
+scale = Vector2(338.241, 190.53)
+texture = ExtResource("1_o217e")
+centered = false
+
+[node name="chakra" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(163, 52)
+texture = ExtResource("3_i08wc")
+
+[node name="warriors" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(163, 52)
+texture = ExtResource("2_83ija")
+
+[node name="dialogue" type="RichTextLabel" parent="."]
+offset_left = 62.0
+offset_top = 99.0
+offset_right = 264.0
+offset_bottom = 153.0
+theme_override_fonts/normal_font = ExtResource("3_slkon")
+text = "* In ancient India, there were once two major epics written in Sanskrit.
+"
+
+[node name="nextbutton" type="TouchScreenButton" parent="."]
+position = Vector2(261, 155)
+scale = Vector2(0.46, 0.32)
+texture_normal = ExtResource("5_d7f24")
+texture_pressed = ExtResource("5_d7f24")
+script = ExtResource("6_i08wc")
+metadata/_custom_type_script = "uid://gl65vr7u5wwp"
+
+[node name="fg" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-6.9999995, -4.9999995)
+scale = Vector2(338.241, 190.53)
+texture = ExtResource("1_o217e")
+centered = false
+
+[connection signal="button_activated" from="nextbutton" to="." method="_on_nextbutton_button_activated"]

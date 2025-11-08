@@ -1,6 +1,7 @@
 extends Node2D
 class_name ArcadeGame
 
+var next_scene: String # set by previous scene
 
 @onready var pressup: Node2D = $tutorials/pressup
 @onready var holdup: Node2D = $tutorials/holdup

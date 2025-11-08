@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://cmimpebagwedr"]
+
+[ext_resource type="Script" uid="uid://ciofo1g0ju7ht" path="res://rooms/rm_day2/rm_day_2.gd" id="1_5ruyi"]
+[ext_resource type="Texture2D" uid="uid://dl11ddv6te66w" path="res://sprites/scenes/bedroom.png" id="2_0q812"]
+[ext_resource type="PackedScene" uid="uid://rimj6wnkj5l5" path="res://objects/player/player.tscn" id="3_nexjf"]
+[ext_resource type="FontFile" uid="uid://7i88sq27pkos" path="res://fonts/medodica/MedodicaRegular.otf" id="4_wgp7a"]
+[ext_resource type="Texture2D" uid="uid://bf21pwygf1m7d" path="res://sprites/scenes/gui/next.png" id="5_obhbr"]
+[ext_resource type="Script" uid="uid://gl65vr7u5wwp" path="res://objects/gui/base_button.gd" id="6_7g0cq"]
+[ext_resource type="Texture2D" uid="uid://bhmqyn32e08ek" path="res://sprites/scenes/cutscenebg.png" id="7_sk6oq"]
+[ext_resource type="Script" uid="uid://coe4pb6h0esat" path="res://rooms/rm_day2/mirror.gd" id="8_4q4o7"]
+[ext_resource type="Texture2D" uid="uid://bh465f017pc5r" path="res://sprites/scenes/interactable.png" id="9_w2ag1"]
+[ext_resource type="Script" uid="uid://kqxt1s72psou" path="res://rooms/rm_day2/desk.gd" id="10_s3ojh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ae41b"]
+size = Vector2(26, 36)
+
+[node name="RmDay2" type="Node2D"]
+script = ExtResource("1_5ruyi")
+
+[node name="bg" type="Sprite2D" parent="."]
+texture = ExtResource("2_0q812")
+centered = false
+
+[node name="player" parent="." instance=ExtResource("3_nexjf")]
+position = Vector2(95, 122)
+
+[node name="dialogue" type="Node2D" parent="."]
+
+[node name="label" type="RichTextLabel" parent="dialogue"]
+offset_left = 47.0
+offset_top = 139.0
+offset_right = 262.0
+offset_bottom = 179.0
+theme_override_fonts/normal_font = ExtResource("4_wgp7a")
+text = "* it's a new day!"
+
+[node name="nextbutton" type="TouchScreenButton" parent="dialogue"]
+position = Vector2(261, 155)
+scale = Vector2(0.46, 0.32)
+texture_normal = ExtResource("5_obhbr")
+texture_pressed = ExtResource("5_obhbr")
+script = ExtResource("6_7g0cq")
+metadata/_custom_type_script = "uid://gl65vr7u5wwp"
+
+[node name="fg" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-6.9999995, -4.9999995)
+scale = Vector2(338.241, 190.53)
+texture = ExtResource("7_sk6oq")
+centered = false
+
+[node name="mirror" type="Node2D" parent="."]
+position = Vector2(153, 117)
+script = ExtResource("8_4q4o7")
+metadata/_custom_type_script = "uid://c6f2mm0q7i6pb"
+metadata/_edit_group_ = true
+
+[node name="area" type="Area2D" parent="mirror"]
+
+[node name="shape" type="CollisionShape2D" parent="mirror/area"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ae41b")
+
+[node name="ping" type="Sprite2D" parent="mirror"]
+position = Vector2(-3.835, -23.005)
+scale = Vector2(1.44, 1.44)
+skew = -0.15707964
+texture = ExtResource("9_w2ag1")
+
+[node name="desk" type="Node2D" parent="."]
+position = Vector2(209, 111)
+script = ExtResource("10_s3ojh")
+metadata/_custom_type_script = "uid://c6f2mm0q7i6pb"
+metadata/_edit_group_ = true
+
+[node name="area" type="Area2D" parent="desk"]
+
+[node name="shape" type="CollisionShape2D" parent="desk/area"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ae41b")
+
+[node name="ping" type="Sprite2D" parent="desk"]
+position = Vector2(0, -22)
+texture = ExtResource("9_w2ag1")
+
+[connection signal="button_activated" from="dialogue/nextbutton" to="." method="_on_nextbutton_button_activated"]
+[connection signal="area_entered" from="mirror/area" to="mirror" method="_on_area_area_entered"]
+[connection signal="area_exited" from="mirror/area" to="mirror" method="_on_area_area_exited"]
+[connection signal="area_entered" from="desk/area" to="desk" method="_on_area_area_entered"]
+[connection signal="area_exited" from="desk/area" to="desk" method="_on_area_area_exited"]

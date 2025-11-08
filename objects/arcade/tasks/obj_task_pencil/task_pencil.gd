@@ -12,10 +12,11 @@ func _ready():
 	$warning.self_modulate.a = 0
 	warning_scale = $warning.scale
 	$warning.scale.x = 0
+	hp = 1
 	attack()
 
 func attack() -> void:
-	var player = get_tree().current_scene.find_child("player", true)
+	var player = get_tree().current_scene.find_child("player", true, false)
 	if player == null:
 		print("did not find players")
 		return

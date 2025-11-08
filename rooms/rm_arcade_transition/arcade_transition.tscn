@@ -1,7 +1,7 @@
 [gd_scene load_steps=71 format=3 uid="uid://cvfpxfv0ggol5"]
 
-[ext_resource type="Script" uid="uid://bxrc2s5sfi5c4" path="res://rooms/rm_arcade_transition/arcade_transition.gd" id="1_t7nft"]
 [ext_resource type="Texture2D" uid="uid://m2er4cn07yb3" path="res://sprites/scenes/boot.png" id="1_vxnav"]
+[ext_resource type="Script" uid="uid://dt4giguyvfnii" path="res://rooms/rm_arcade_transition/arcade_transition2.gd" id="1_y62oq"]
 [ext_resource type="Texture2D" uid="uid://cqha1t5htkaax" path="res://sprites/scenes/purple.png" id="3_v8i4s"]
 [ext_resource type="Texture2D" uid="uid://7dvn6njgxc7r" path="res://sprites/scenes/lightpurple.png" id="4_y62oq"]
 
@@ -468,8 +468,8 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="ArcadeSceneTransition" type="Node2D"]
-script = ExtResource("1_t7nft")
+[node name="ArcadeSceneTransition1" type="Node2D"]
+script = ExtResource("1_y62oq")
 
 [node name="Boot" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2q7rh")

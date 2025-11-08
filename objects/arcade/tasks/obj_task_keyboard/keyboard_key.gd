@@ -1,5 +1,5 @@
 extends Node2D
-
+class_name TaskKeyboardKey
 var hsp: float
 var vsp: float
 var rotsp_deg: float

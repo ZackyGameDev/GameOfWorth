@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckiwgbnkh1ryf"]
+
+[ext_resource type="Script" uid="uid://btbe478mmp3am" path="res://rooms/rm_arcade_game/spawner.gd" id="1_v31hr"]
+
+[node name="spawner" type="Node2D"]
+script = ExtResource("1_v31hr")

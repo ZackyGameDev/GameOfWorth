@@ -26,3 +26,5 @@ shape = SubResource("RectangleShape2D_3g1ki")
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_u3xl2")
+
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]

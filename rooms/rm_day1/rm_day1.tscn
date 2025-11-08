@@ -1,0 +1,114 @@
+[gd_scene load_steps=14 format=3 uid="uid://mn65g4hir2l4"]
+
+[ext_resource type="Script" uid="uid://c60ad246b2dcn" path="res://rooms/rm_day1/rm_day_1.gd" id="1_0kady"]
+[ext_resource type="Texture2D" uid="uid://dl11ddv6te66w" path="res://sprites/scenes/bedroom.png" id="1_iobu5"]
+[ext_resource type="PackedScene" uid="uid://rimj6wnkj5l5" path="res://objects/player/player.tscn" id="2_7t7ql"]
+[ext_resource type="Texture2D" uid="uid://bf21pwygf1m7d" path="res://sprites/scenes/gui/next.png" id="3_6l7bj"]
+[ext_resource type="FontFile" uid="uid://7i88sq27pkos" path="res://fonts/medodica/MedodicaRegular.otf" id="3_xtmwi"]
+[ext_resource type="Script" uid="uid://gl65vr7u5wwp" path="res://objects/gui/base_button.gd" id="4_xtmwi"]
+[ext_resource type="Texture2D" uid="uid://bhmqyn32e08ek" path="res://sprites/scenes/cutscenebg.png" id="7_8oasd"]
+[ext_resource type="Script" uid="uid://cx8vlf1kmgvmn" path="res://rooms/rm_day1/mirror.gd" id="8_ae41b"]
+[ext_resource type="Texture2D" uid="uid://bh465f017pc5r" path="res://sprites/scenes/interactable.png" id="9_pr5bg"]
+[ext_resource type="Script" uid="uid://dcmarw2outo7v" path="res://rooms/rm_day1/desk.gd" id="10_ae41b"]
+[ext_resource type="Script" uid="uid://02cw5wokmv4d" path="res://rooms/rm_day1/door.gd" id="11_hhmtv"]
+[ext_resource type="Texture2D" uid="uid://7dvn6njgxc7r" path="res://sprites/scenes/lightpurple.png" id="12_vqo32"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ae41b"]
+size = Vector2(26, 36)
+
+[node name="RmDay1" type="Node2D"]
+script = ExtResource("1_0kady")
+
+[node name="bg" type="Sprite2D" parent="."]
+texture = ExtResource("1_iobu5")
+centered = false
+
+[node name="player" parent="." instance=ExtResource("2_7t7ql")]
+position = Vector2(95, 122)
+
+[node name="dialogue" type="Node2D" parent="."]
+
+[node name="label" type="RichTextLabel" parent="dialogue"]
+offset_left = 47.0
+offset_top = 139.0
+offset_right = 262.0
+offset_bottom = 179.0
+theme_override_fonts/normal_font = ExtResource("3_xtmwi")
+text = "* it's a new day!"
+
+[node name="nextbutton" type="TouchScreenButton" parent="dialogue"]
+position = Vector2(261, 155)
+scale = Vector2(0.46, 0.32)
+texture_normal = ExtResource("3_6l7bj")
+texture_pressed = ExtResource("3_6l7bj")
+script = ExtResource("4_xtmwi")
+metadata/_custom_type_script = "uid://gl65vr7u5wwp"
+
+[node name="fg" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-6.9999995, -4.9999995)
+scale = Vector2(338.241, 190.53)
+texture = ExtResource("7_8oasd")
+centered = false
+
+[node name="mirror" type="Node2D" parent="."]
+position = Vector2(153, 117)
+script = ExtResource("8_ae41b")
+metadata/_custom_type_script = "uid://c6f2mm0q7i6pb"
+metadata/_edit_group_ = true
+
+[node name="area" type="Area2D" parent="mirror"]
+
+[node name="shape" type="CollisionShape2D" parent="mirror/area"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ae41b")
+
+[node name="ping" type="Sprite2D" parent="mirror"]
+position = Vector2(0, -22)
+texture = ExtResource("9_pr5bg")
+
+[node name="desk" type="Node2D" parent="."]
+position = Vector2(209, 111)
+script = ExtResource("10_ae41b")
+metadata/_custom_type_script = "uid://c6f2mm0q7i6pb"
+metadata/_edit_group_ = true
+
+[node name="area" type="Area2D" parent="desk"]
+
+[node name="shape" type="CollisionShape2D" parent="desk/area"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ae41b")
+
+[node name="ping" type="Sprite2D" parent="desk"]
+position = Vector2(0, -22)
+texture = ExtResource("9_pr5bg")
+
+[node name="door" type="Node2D" parent="."]
+position = Vector2(253, 118)
+script = ExtResource("11_hhmtv")
+metadata/_custom_type_script = "uid://c6f2mm0q7i6pb"
+metadata/_edit_group_ = true
+
+[node name="area" type="Area2D" parent="door"]
+
+[node name="shape" type="CollisionShape2D" parent="door/area"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ae41b")
+
+[node name="ping" type="Sprite2D" parent="door"]
+position = Vector2(0, -22)
+texture = ExtResource("9_pr5bg")
+
+[node name="gdfg" type="Sprite2D" parent="door"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-83.999985, -30)
+scale = Vector2(1.421875, 1.3722222)
+texture = ExtResource("12_vqo32")
+
+[connection signal="button_activated" from="dialogue/nextbutton" to="." method="_on_nextbutton_button_activated"]
+[connection signal="area_entered" from="mirror/area" to="mirror" method="_on_area_area_entered"]
+[connection signal="area_exited" from="mirror/area" to="mirror" method="_on_area_area_exited"]
+[connection signal="area_entered" from="desk/area" to="desk" method="_on_area_area_entered"]
+[connection signal="area_exited" from="desk/area" to="desk" method="_on_area_area_exited"]
+[connection signal="area_entered" from="door/area" to="door" method="_on_area_area_entered"]
+[connection signal="area_exited" from="door/area" to="door" method="_on_area_area_exited"]

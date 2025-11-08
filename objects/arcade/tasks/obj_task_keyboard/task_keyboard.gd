@@ -25,9 +25,8 @@ func spawn_warning() -> Node2D:
 	warning = warning_scene.instantiate()
 	var sprite: Sprite2D = warning.get_node("sprite")
 	sprite.scale = Vector2.ZERO
-	warning.position = pivot_pos
 	sprite.self_modulate.a = 0
-	get_parent().add_child.call_deferred(warning)
+	add_child.call_deferred(warning)
 	var tween = get_tree().create_tween()
 	tween.tween_property(sprite, "self_modulate:a", 0.5, fuse_time*critical_threshhold) \
 		.set_ease(Tween.EASE_OUT)
@@ -68,6 +67,7 @@ func attack() -> void:
 			randf_range(-shake_intensity, shake_intensity), 
 			randf_range(-shake_intensity, shake_intensity)
 		) * (1 - t.time_left/t.wait_time)
+		
 		await get_tree().process_frame
 	
 	var scene = preload("res://objects/arcade/tasks/obj_task_keyboard/keyboard_key.tscn")

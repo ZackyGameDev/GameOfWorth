@@ -11,5 +11,9 @@ func _on_boot_animation_finished() -> void:
 	tween = get_tree().create_tween()
 	tween.tween_property($Lightpurple, "self_modulate:a", 1, 0.5)
 	await tween.finished
-	get_tree().change_scene_to_file("res://rooms/rm_arcade_game/arcade_game.tscn")
+	
+	var game = preload("res://rooms/rm_arcade_game/arcade_game.tscn").instantiate()
+	game.next_scene = "res://rooms/ending/bad_end.tscn"
+	add_child(game)
+	#get_tree().change_scene_to_file("res://rooms/rm_arcade_game/arcade_game.tscn")
 	

@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://ce66wx7a3d2el"]
+
+[ext_resource type="Texture2D" uid="uid://c2f4c1hmljur8" path="res://sprites/scenes/title.png" id="1_8j657"]
+[ext_resource type="Script" uid="uid://dv6rhd0hcw5ne" path="res://rooms/rm_title/rm_title.gd" id="1_vl8xl"]
+[ext_resource type="Script" uid="uid://gl65vr7u5wwp" path="res://objects/gui/base_button.gd" id="2_7jep7"]
+[ext_resource type="Texture2D" uid="uid://bqrf8arp5c7wa" path="res://sprites/scenes/facechakra.png" id="2_b6f04"]
+[ext_resource type="Texture2D" uid="uid://ds34knsu7wdjm" path="res://sprites/scenes/gui/start.png" id="3_vl8xl"]
+[ext_resource type="FontFile" uid="uid://7i88sq27pkos" path="res://fonts/medodica/MedodicaRegular.otf" id="6_mkubj"]
+
+[node name="RmTitle" type="Node2D"]
+script = ExtResource("1_vl8xl")
+
+[node name="Title" type="Sprite2D" parent="."]
+texture = ExtResource("1_8j657")
+centered = false
+
+[node name="chakra" type="Sprite2D" parent="."]
+self_modulate = Color(0.37960815, 0.45812818, 0.9606561, 0)
+position = Vector2(158, 122)
+texture = ExtResource("2_b6f04")
+
+[node name="play" type="TouchScreenButton" parent="."]
+position = Vector2(121, 105)
+texture_normal = ExtResource("3_vl8xl")
+texture_pressed = ExtResource("3_vl8xl")
+script = ExtResource("2_7jep7")
+metadata/_custom_type_script = "uid://gl65vr7u5wwp"
+
+[node name="endings" type="RichTextLabel" parent="."]
+offset_left = 27.0
+offset_top = 142.0
+offset_right = 286.0
+offset_bottom = 179.0
+theme_override_fonts/normal_font = ExtResource("6_mkubj")
+text = "Endings found: 0/2"
+horizontal_alignment = 1
+
+[connection signal="button_activated" from="play" to="." method="_on_play_button_activated"]

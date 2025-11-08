@@ -4,6 +4,7 @@ class_name ArcadePlayer
 signal got_hurt(resultant_hp: float)
 signal got_distracted(remaining_time: float)
 
+var controllable: bool = true
 
 var hsp: float = 0.0
 var vsp: float = 0.0
@@ -55,16 +56,45 @@ func show_damage_tutorial():
 	get_parent().add_child(stamp)
 
 func get_hurt(damage: float) -> void:
+	if not controllable: 
+		return
 	stamina -= damage
 	shake_strength = 2.0
 	got_hurt.emit(stamina)
 	hud.power = stamina
 	hud.show_power()
+	if stamina <= 0:
+		shake_strength = 15
+		var scene = preload("res://objects/arcade/tasks/obj_task_keyboard/keyboard_key.tscn")
+		for i in range(30):
+			var key: Node2D = scene.instantiate()
+			key.global_position = global_position
+			get_parent().add_child(key)
+		var twan = get_tree().create_tween()
+		visible = false
+		controllable = false
+		# just as a timer
+		twan.tween_property(self, "position:x", 10, 5)
+		await twan.finished
+		SaveSystem.save_hi_score(hud.hi_score)
+		SaveSystem.save_tasks(hud.tasks_done)
+		var parent = get_parent()
+		if parent.has_node("spawner"):
+			var spawner = parent.get_node("spawner")
+			for child in spawner.get_children():
+				child.queue_free()
+		await get_tree().process_frame
+		get_tree().change_scene_to_file(get_parent().next_scene)
+		print('dont', get_parent().next_scene)
 
 func update_points(points_to_add: int):
 	points += points_to_add
 	hud.points = points
 	hud.show_score()
+	if points == 150: 
+		var spawner = preload("res://rooms/rm_arcade_game/spawner.tscn").instantiate()
+		#spawner.global_position = Vector2(320.0/2, -20)
+		get_parent().add_child(spawner)
 
 func process_shake(delta):
 	if shake_strength > 0.0:
@@ -98,6 +128,9 @@ func flash():
 
 func _physics_process(delta: float) -> void:
 	process_shake(delta)
+	
+	if not controllable: 
+		return
 	
 	var input_dir: float = 0.0
 	
@@ -140,6 +173,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		get_hurt(0.1)
 		update_points(parent.points)
 		parent.die()
+		flash()
+	if parent is TaskKeyboardKey and not iframes_active:
+		get_hurt(0.2)
 		flash()
 
 

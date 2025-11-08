@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4pud6c458t5m"]
+
+[ext_resource type="Script" uid="uid://bidf4upg7ta3c" path="res://rooms/ending/bad_end.gd" id="1_hlv7m"]
+[ext_resource type="Texture2D" uid="uid://bhmqyn32e08ek" path="res://sprites/scenes/cutscenebg.png" id="1_noymn"]
+[ext_resource type="FontFile" uid="uid://7i88sq27pkos" path="res://fonts/medodica/MedodicaRegular.otf" id="2_hlv7m"]
+[ext_resource type="Texture2D" uid="uid://bf21pwygf1m7d" path="res://sprites/scenes/gui/next.png" id="3_ew4lr"]
+[ext_resource type="Script" uid="uid://gl65vr7u5wwp" path="res://objects/gui/base_button.gd" id="4_w8p7x"]
+
+[node name="BadEnd" type="Node2D"]
+script = ExtResource("1_hlv7m")
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(-6.9999995, -4.9999995)
+scale = Vector2(338.241, 190.53)
+texture = ExtResource("1_noymn")
+centered = false
+
+[node name="dialogue" type="RichTextLabel" parent="."]
+offset_left = 56.0
+offset_top = 12.0
+offset_right = 264.0
+offset_bottom = 169.0
+theme_override_fonts/normal_font = ExtResource("2_hlv7m")
+text = "* In ancient India, there were once two major epics written in Sanskrit.
+"
+
+[node name="nextbutton" type="TouchScreenButton" parent="."]
+position = Vector2(261, 155)
+scale = Vector2(0.46, 0.32)
+texture_normal = ExtResource("3_ew4lr")
+texture_pressed = ExtResource("3_ew4lr")
+script = ExtResource("4_w8p7x")
+metadata/_custom_type_script = "uid://gl65vr7u5wwp"
+
+[connection signal="button_activated" from="nextbutton" to="." method="_on_nextbutton_button_activated"]

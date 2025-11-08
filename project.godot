@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="worth"
-run/main_scene="uid://cvfpxfv0ggol5"
+run/main_scene="uid://ce66wx7a3d2el"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -26,6 +26,11 @@ window/size/viewport_height=180
 window/size/window_width_override=960
 window/size/window_height_override=540
 window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [rendering]
 

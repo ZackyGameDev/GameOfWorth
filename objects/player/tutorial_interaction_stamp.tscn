@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy6rkdy3yjbdv"]
+
+[ext_resource type="Script" uid="uid://bh86n704bqsdy" path="res://objects/arcade/misc/nice!/nicestamp.gd" id="1_bwdgq"]
+[ext_resource type="FontFile" uid="uid://7i88sq27pkos" path="res://fonts/medodica/MedodicaRegular.otf" id="1_wg66o"]
+
+[node name="TutorialInteractionStamp" type="Node2D"]
+script = ExtResource("1_bwdgq")
+metadata/_custom_type_script = "uid://bh86n704bqsdy"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -40.0
+offset_top = -19.0
+offset_right = 40.0
+offset_bottom = 18.0
+theme_override_fonts/normal_font = ExtResource("1_wg66o")
+text = "Press [UP] to interact."
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -14,6 +14,7 @@ var warning: Node2D
 func _ready():
 	super()
 	warning_scene = preload(WARNING_PATH)
+	hp = 2
 	while true: 
 		await attack()
 

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhtdx26xpdt08"]
+
+[ext_resource type="Texture2D" uid="uid://bm26qo0ws1ba3" path="res://sprites/scenes/reflection.png" id="1_2eqbf"]
+
+[node name="Reflection1" type="Node2D"]
+
+[node name="frame1" type="Sprite2D" parent="."]
+position = Vector2(-232, -56)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_2eqbf")
+centered = false
+
+[node name="frame0" type="Sprite2D" parent="."]
+texture = ExtResource("1_2eqbf")
+centered = false
