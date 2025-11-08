@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr2bwn2i48ml1"]
+
+[ext_resource type="Script" uid="uid://sapcff65qtay" path="res://objects/arcade/tasks/obj_task_keyboard/keyboard_key.gd" id="1_5qhye"]
+[ext_resource type="Texture2D" uid="uid://ctghcg6bsiulm" path="res://sprites/arcade sprites/singularkey.png" id="1_6ns24"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qhye"]
+size = Vector2(2, 2)
+
+[node name="KeyboardKey" type="Node2D"]
+script = ExtResource("1_5qhye")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_6ns24")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_5qhye")

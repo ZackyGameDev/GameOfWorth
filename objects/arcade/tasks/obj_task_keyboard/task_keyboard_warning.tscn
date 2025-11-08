@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfvjbe35xgbvq"]
+
+[ext_resource type="Texture2D" uid="uid://bhfjafhbfuv5o" path="res://sprites/arcade sprites/redcircle.png" id="1_ll4ve"]
+
+[node name="TaskKeyboardWarning" type="Node2D"]
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ll4ve")

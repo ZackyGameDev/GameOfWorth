@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfxi7j0wg5nuj"]
+
+[ext_resource type="Script" uid="uid://b48ae2imce2y4" path="res://objects/arcade/tasks/obj_task_keyboard/task_keyboard.gd" id="1_u3xl2"]
+[ext_resource type="Texture2D" uid="uid://jqt84vxyams3" path="res://sprites/arcade sprites/taskkeyboard.png" id="2_u3xl2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_616fy"]
+size = Vector2(50, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g1ki"]
+size = Vector2(46, 22)
+
+[node name="TaskKeyboard" type="Node2D"]
+script = ExtResource("1_u3xl2")
+metadata/_custom_type_script = "uid://bmkh4i14vp8pr"
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_616fy")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="shape" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_3g1ki")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_u3xl2")
