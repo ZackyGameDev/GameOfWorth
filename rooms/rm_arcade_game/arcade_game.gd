@@ -8,10 +8,8 @@ class_name ArcadeGame
 
 
 func _ready() -> void:
-	$fg.self_modulate.a = 1
-	$fg.visible = true
 	var tween = get_tree().create_tween()
-	tween.tween_property($fg, "self_modulate:a", 0, 1)
+	tween.tween_property($fg, "self_modulate:a", 0, 2)
 
 func show_nice_stamp() -> void:
 	var nicestampscene = preload("res://objects/arcade/misc/nice!/nicestamp.tscn")
