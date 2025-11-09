@@ -20,7 +20,7 @@ var rng := RandomNumberGenerator.new()
 const SCREEN_SIZE = Vector2(320, 180)
 const SAFE_MARGIN = 16
 const OFFSCREEN_OFFSET = 32
-const PLAYER_SAFETY_RADIUS = 48
+const PLAYER_SAFETY_RADIUS = 64
 
 func cleanup():
 	for child in get_children():
@@ -72,19 +72,15 @@ func _spawn_paper() -> void:
 	var target_pos = _get_safe_target_position()
 	var start_pos = _get_safe_offscreen_spawn_point(target_pos)
 
-	paper.position = start_pos
-	paper.fly_to(target_pos, 0.5)
-	paper.attack()
+	paper.pivot_pos = start_pos
+	paper.fly_to(target_pos, 3)
 	enemies_on_screen.append(paper)
 
 func _spawn_pencil() -> void:
 	var pencil = pencil_scene.instantiate()
-	add_child(pencil)
 
 	var target_pos = _get_safe_target_position()
 	var start_pos = _get_safe_offscreen_spawn_point(target_pos)
-
-	pencil.position = start_pos
 
 	# Make sure pencils don't face directly at player during entry
 	var direction = (target_pos - start_pos).normalized()
@@ -95,6 +91,8 @@ func _spawn_pencil() -> void:
 
 	pencil.rotation = direction.angle()
 	#pencil.fly_to(target_pos, 0.4)
+	pencil.position = -100*Vector2(cos(pencil.rotation), sin(pencil.rotation))
+	add_child(pencil)
 	pencil.attack()
 	enemies_on_screen.append(pencil)
 
@@ -106,7 +104,7 @@ func _spawn_pen() -> void:
 	var start_pos = _get_safe_offscreen_spawn_point(target_pos)
 
 	# Pen spawns offscreen and flies to its target spot
-	pen.position = start_pos
+	pen.pivot_pos = start_pos
 	pen.rotation = (SCREEN_SIZE / 2 - target_pos).angle() + rng.randf_range(-0.1, 0.1)
 	pen.fly_to(target_pos, 0.6)
 	enemies_on_screen.append(pen)
@@ -122,7 +120,7 @@ func _spawn_pen() -> void:
 		var dir = Vector2.RIGHT.rotated(offset_angle)
 		var pencil_start = target_pos + dir * 8  # renamed to avoid shadowing
 
-		pencil.position = pencil_start
+		pencil.pivot_pos = pencil_start
 		pencil.rotation = offset_angle
 		pencil.attack()
 		enemies_on_screen.append(pencil)
@@ -134,8 +132,8 @@ func _spawn_keyboard() -> void:
 
 	var start_pos = Vector2(SCREEN_SIZE.x / 2, -OFFSCREEN_OFFSET)
 	var target_pos = SCREEN_SIZE / 2
-	keyboard.position = start_pos
-	keyboard.fly_to(target_pos, 3.0)
+	keyboard.pivot_pos = start_pos
+	keyboard.fly_to(target_pos, 5)
 	keyboard.attack()
 	enemies_on_screen.append(keyboard)
 	keyboard.connect("tree_exited", Callable(self, "_on_keyboard_freed"))
@@ -146,32 +144,56 @@ func _on_keyboard_freed() -> void:
 # --------------------------------------------------------
 # Utility: Safe spawn logic
 # --------------------------------------------------------
+func _get_closest_side(screen_res: Vector2, point: Vector2) -> String:
+	var rect: Rect2 = Rect2(Vector2.ZERO, screen_res)
+	var left_dist = abs(point.x - rect.position.x)
+	var right_dist = abs(rect.position.x + rect.size.x - point.x)
+	var top_dist = abs(point.y - rect.position.y)
+	var bottom_dist = abs(rect.position.y + rect.size.y - point.y)
+	
+	var distances = {
+		"left": left_dist,
+		"right": right_dist,
+		"top": top_dist,
+		"bottom": bottom_dist
+	}
+	
+	var closest_side = "left"
+	var min_dist = left_dist
+	
+	for side in distances.keys():
+		if distances[side] < min_dist:
+			min_dist = distances[side]
+			closest_side = side
+	
+	return closest_side
+
 func _get_safe_target_position() -> Vector2:
 	var pos: Vector2
 	while true:
 		pos = Vector2(
 			rng.randf_range(SAFE_MARGIN * 2, SCREEN_SIZE.x - SAFE_MARGIN * 2),
-			rng.randf_range(SAFE_MARGIN * 2, SCREEN_SIZE.y - SAFE_MARGIN * 2)
+			rng.randf_range(SAFE_MARGIN, SCREEN_SIZE.y - SAFE_MARGIN)
 		)
 		if not player or pos.distance_to(player.position) > PLAYER_SAFETY_RADIUS:
 			break
 	return pos
 
 func _get_safe_offscreen_spawn_point(target: Vector2) -> Vector2:
-	var side = rng.randi_range(0, 3)
-	var pos = Vector2.ZERO
+	var side: String = _get_closest_side(SCREEN_SIZE, target)
+	var pos: Vector2
 	match side:
-		0: pos = Vector2(target.x, -OFFSCREEN_OFFSET)                    # Top
-		1: pos = Vector2(SCREEN_SIZE.x + OFFSCREEN_OFFSET, target.y)     # Right
-		2: pos = Vector2(target.x, SCREEN_SIZE.y + OFFSCREEN_OFFSET)     # Bottom
-		3: pos = Vector2(-OFFSCREEN_OFFSET, target.y)                    # Left
+		"top": pos = Vector2(target.x, -OFFSCREEN_OFFSET)                    # Top
+		"right": pos = Vector2(SCREEN_SIZE.x + OFFSCREEN_OFFSET, target.y)     # Right
+		"bottom": pos = Vector2(target.x, SCREEN_SIZE.y + OFFSCREEN_OFFSET)     # Bottom
+		"left": pos = Vector2(-OFFSCREEN_OFFSET, target.y)                    # Left
 
-	# Ensure spawn path doesn’t go through player
-	if player:
-		var path_vec = target - pos
-		var player_vec = player.position - pos
-		if abs(path_vec.angle_to(player_vec)) < deg_to_rad(30):
-			# offset perpendicular to avoid path overlap
-			var perp = Vector2(-path_vec.y, path_vec.x).normalized()
-			pos += perp * 32 * sign(rng.randf() - 0.5)
+	## Ensure spawn path doesn’t go through player
+	#if player:
+		#var path_vec = target - pos
+		#var player_vec = player.position - pos
+		#if abs(path_vec.angle_to(player_vec)) < deg_to_rad(30):
+			## offset perpendicular to avoid path overlap
+			#var perp = Vector2(-path_vec.y, path_vec.x).normalized()
+			#pos += perp * 32 * sign(rng.randf() - 0.5)
 	return pos

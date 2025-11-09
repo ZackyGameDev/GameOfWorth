@@ -22,9 +22,8 @@ func attack() -> void:
 		return
 
 	var aim_dir: Vector2 = Vector2.from_angle(rotation)
-	var aim_target = player.position - (aim_dir * aim_distance)
-
-	fly_to(aim_target, 0.5)
+	#var aim_target = player.position - (aim_dir * aim_distance)
+	#fly_to(aim_target, 0.5)
 
 	var timer = Timer.new()
 	timer.wait_time = aim_time
