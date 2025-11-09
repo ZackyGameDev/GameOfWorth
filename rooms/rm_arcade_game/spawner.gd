@@ -29,8 +29,9 @@ func cleanup():
 
 func _ready() -> void:
 	rng.randomize()
-	if has_node(player_path):
-		player = get_node(player_path)
+	#if has_node(player_path):
+	player = get_tree().get_root().find_child("player", true, false)
+
 
 func _process(delta: float) -> void:
 	spawn_timer += delta
