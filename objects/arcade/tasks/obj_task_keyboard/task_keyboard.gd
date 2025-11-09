@@ -14,7 +14,7 @@ func _ready():
 	warning_scene = preload("res://objects/arcade/tasks/obj_task_keyboard/task_keyboard_warning.tscn")
 	super()
 	attack()
-	hp = 20
+	hp = 15
 
 func die():
 	if is_instance_valid(warning):
