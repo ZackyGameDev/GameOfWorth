@@ -63,8 +63,8 @@ shape = SubResource("RectangleShape2D_ae41b")
 
 [node name="ping" type="Sprite2D" parent="mirror"]
 position = Vector2(-3.835, -23.005)
-scale = Vector2(1.44, 1.44)
-skew = -0.15707964
+scale = Vector2(1.925, 1.925)
+skew = -0.6021386
 texture = ExtResource("9_w2ag1")
 
 [node name="desk" type="Node2D" parent="."]
