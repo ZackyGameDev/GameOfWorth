@@ -130,7 +130,7 @@ func _spawn_keyboard() -> void:
 	var keyboard = keyboard_scene.instantiate()
 	add_child(keyboard)
 
-	var start_pos = Vector2(SCREEN_SIZE.x / 2, -OFFSCREEN_OFFSET)
+	var start_pos = Vector2(SCREEN_SIZE.x / 2, -20)
 	var target_pos = SCREEN_SIZE / 2
 	keyboard.pivot_pos = start_pos
 	keyboard.fly_to(target_pos, 5)
